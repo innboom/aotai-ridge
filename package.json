@@ -10,7 +10,7 @@
   "scripts": {
     "dev": "node scripts/server.mjs",
     "test": "node --test tests/*.test.mjs",
-    "check": "node --check public/game.mjs && node --check public/engine.mjs && node --test tests/*.test.mjs",
+    "check": "node --check public/game.mjs && node --check public/scenery.mjs && node --check public/engine.mjs && node --test tests/*.test.mjs",
     "deploy": "wrangler deploy",
     "preview:worker": "wrangler dev"
   },

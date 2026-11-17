@@ -7,3 +7,16 @@
 @media(max-height:520px) and (orientation:landscape){.topbar{height:52px}.game-shell{min-height:320px;aspect-ratio:16/9}.home-copy{top:8%;left:6%}h1{font-size:38px;margin:12px 0}h1>span{font-size:18px;margin-top:8px;line-height:1.4}.home-copy>p{display:none}.home-controls{display:none}.start-actions{margin-top:16px}.home-coordinate{top:8%}.home-bottom{bottom:5%}.journey-strip,footer{display:none}.panel{padding:20px 30px}.panel h2{font-size:24px;margin:10px 0}.panel p{margin:10px 0}.stamp{display:none}.result-stats{padding:10px 0;margin:12px 0}.touch-controls button{width:42px;height:42px}.chapter-banner h2{font-size:26px}.hud-vitals{position:static}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}.chapter-banner{animation:none}.grain{display:none}}
 @media(max-width:700px){.touch-controls:not([hidden]){display:flex}.home-controls{display:none}.interaction-prompt{bottom:23%}}
+
+/* Natural scenery: keep photographic light, and place contrast behind the UI. */
+.grain{opacity:.018}
+.home{background:linear-gradient(90deg,#182220e8 0%,#1c2923a1 30%,#21302a12 70%,transparent 100%)}
+.home-copy>p{color:#d3d5c7;text-shadow:0 1px 4px #152017}
+.home-controls{color:#bbc4b4}.home-coordinate{color:#f0f0e4;text-shadow:0 1px 6px #25342d}
+.home-coordinate>span:last-child{color:#d2d9cd}.home-bottom{color:#e1e0cb;text-shadow:0 1px 5px #152017}
+.hud-vitals{background:#1724219c;border-color:#e2dfc62b;backdrop-filter:blur(5px)}
+.hud-place,.hud-right{text-shadow:0 1px 6px #111d22,0 1px 2px #111d22}
+.hud-place>small{color:#e5e5d8}.hud-right button{background:#172421a3}
+.route-progress{text-shadow:0 1px 4px #101b19;color:#e5e6d8}
+.chapter-banner{text-shadow:0 2px 8px #13211e,0 2px 20px #13211e}
+@media(max-width:700px){.home{background:linear-gradient(90deg,#182220c9 0%,#1c29238c 65%,#21302a25 100%)}.home-copy{filter:drop-shadow(0 2px 6px #17241c77)}}
