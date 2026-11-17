@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#101c22">
+  <meta name="description" content="以秦岭鳌山与太白山的草甸、石海和风雪为灵感的横版探索游戏。穿过山脊，带一封信回家。">
+  <title>山脊来信 · RIDGELINE</title>
+  <link rel="icon" href="./icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="./" aria-label="山脊来信首页"><svg viewBox="0 0 40 32" aria-hidden="true"><path d="m2 28 12-21 6 9 5-13 13 25M9 16l5 3 4-5M21 14l4 4 5-5"/></svg><span>山脊来信<small>RIDGELINE</small></span></a>
+    <div class="top-caption">一段关于山野、风雪与归途的旅程</div>
+    <nav aria-label="游戏工具"><button id="journalButton" class="text-button"><span class="book-icon">▤</span> 山野手记 <span id="journalCount">00 / 09</span></button><button id="soundButton" class="icon-button" aria-label="开启音效" aria-pressed="false" title="音效开关">♫<span class="sound-off">╱</span></button><button id="helpButton" class="icon-button" aria-label="操作说明" title="操作说明">?</button></nav>
+  </header>
+
+  <main>
+    <section class="game-shell" aria-label="横版闯关游戏">
+      <canvas id="game" width="1440" height="810" tabindex="0" aria-label="山脊来信游戏画面。使用方向键移动，空格跳跃，E 互动，Escape 暂停。"></canvas>
+      <div class="grain" aria-hidden="true"></div>
+      <div id="hud" class="hud" hidden>
+        <div class="hud-place"><span id="hudNumber">01 / 03</span><b id="hudPlace">鳌山 · 高山草甸</b><small id="hudWeather">晴间多云</small></div>
+        <div class="hud-vitals"><div><span>体温</span><i class="meter"><i id="warmthBar"></i></i><b id="warmthValue">100%</b></div><div><span>体力</span><i class="meter stamina"><i id="staminaBar"></i></i><b id="staminaValue">100%</b></div></div>
+        <div class="hud-right"><span id="elapsed">00:00</span><button id="pauseButton" aria-label="暂停游戏">Ⅱ</button></div>
+      </div>
+      <div id="progress" class="route-progress" hidden><span id="routeLabel">草甸起点</span><div><i id="progressBar"></i></div><span>山脊信标</span></div>
+      <div id="prompt" class="interaction-prompt" hidden></div>
+      <div id="toast" class="toast" role="status" hidden></div>
+
+      <div id="home" class="home overlay">
+        <div class="home-copy">
+          <div class="eyebrow"><i></i> QINLING MOUNTAINS · A SIDE-SCROLLING JOURNEY</div>
+          <h1>山脊来信<span>向山而行，<br>带故事回家。</span></h1>
+          <p>穿过鳌山的草甸、秦岭的石海和太白的风雪。<br>沿途拾起散落的手记，让山那边的人听见你的消息。</p>
+          <div class="start-actions"><button id="startButton" class="primary-button">开始旅程 <span>↗</span></button><button id="continueButton" class="secondary-button" hidden>继续旅程 →</button></div>
+          <div class="home-controls"><span><kbd>←</kbd><kbd>→</kbd> 移动</span><span><kbd>Space</kbd> 跳跃</span><span><kbd>E</kbd> 互动</span></div>
+        </div>
+        <div class="home-coordinate"><span>秦岭 · 中国</span><b>鳌山 → 太白山</b><span>三幕山野故事 / 09 枚手记</span></div>
+        <div class="home-bottom"><span class="live-dot"></span> 风从山脊吹来 <span class="home-bottom-right">戴上耳机，慢慢出发</span></div>
+      </div>
+
+      <div id="pause" class="center-overlay overlay" hidden><div class="panel"><span class="eyebrow">TAKE A BREATH</span><h2>在这里，歇一会儿。</h2><p>山不会走远。准备好后，继续你的旅程。</p><button id="resumeButton" class="primary-button">继续前行 <span>→</span></button><button id="restartButton" class="secondary-button">重新开始本关</button><button id="backHomeButton" class="plain-button">返回首页</button></div></div>
+      <div id="finish" class="center-overlay overlay" hidden><div class="panel finish-panel"><div class="stamp">山野<br>来信</div><span id="finishEyebrow" class="eyebrow">CHAPTER COMPLETE</span><h2 id="finishTitle">这一程，平安抵达。</h2><p id="finishText"></p><div class="result-stats"><div><b id="resultTime">00:00</b><span>行走时光</span></div><div><b id="resultNotes">0 / 3</b><span>拾得手记</span></div><div><b id="resultFalls">0</b><span>重新出发</span></div></div><button id="nextButton" class="primary-button">前往下一程 <span>→</span></button><button id="finishHomeButton" class="plain-button">返回首页</button></div></div>
+
+      <div id="touchControls" class="touch-controls" hidden><div><button data-control="left" aria-label="向左移动">←</button><button data-control="right" aria-label="向右移动">→</button></div><div><button data-control="interact" aria-label="互动">E</button><button data-control="jump" class="touch-jump" aria-label="跳跃">↑</button></div></div>
+      <div id="chapterBanner" class="chapter-banner" hidden><span id="chapterSubtitle"></span><h2 id="chapterTitle"></h2></div>
+    </section>
+
+    <section class="journey-strip" aria-label="旅程章节">
+      <div class="strip-title"><span>THE JOURNEY</span><h2>一条山脊，<br>三种心境。</h2></div>
+      <button class="chapter-card active" data-level="0"><span class="chapter-index">01</span><div><span class="chapter-en">THE MEADOW</span><h3>鳌山 · 高山草甸</h3><p>晨光 / 草甸 / 第一封来信</p></div><span class="chapter-state">启程 ↗</span></button>
+      <button class="chapter-card" data-level="1" aria-disabled="true"><span class="chapter-index">02</span><div><span class="chapter-en">THE STONE SEA</span><h3>秦岭主梁 · 石海</h3><p>云雾 / 岩隙 / 风的回声</p></div><span class="chapter-state">未抵达</span></button>
+      <button class="chapter-card" data-level="2" aria-disabled="true"><span class="chapter-index">03</span><div><span class="chapter-en">THE SNOWLINE</span><h3>太白山 · 风雪之上</h3><p>飞雪 / 避风点 / 归途</p></div><span class="chapter-state">未抵达</span></button>
+    </section>
+    <footer><span>以秦岭地貌为灵感的虚构旅程 · 关卡布局非真实登山路线</span><span>保持好奇，也敬畏山野。 <i>✦</i></span></footer>
+  </main>
+
+  <dialog id="helpDialog"><button class="close-dialog" aria-label="关闭说明">×</button><span class="eyebrow">FIELD GUIDE</span><h2>出发前的小纸条</h2><div class="help-grid"><span><kbd>A</kbd><kbd>D</kbd> / <kbd>←</kbd><kbd>→</kbd></span><p>左右移动</p><span><kbd>Space</kbd> / <kbd>W</kbd> / <kbd>↑</kbd></span><p>跳跃；按得久，跳得高</p><span><kbd>Shift</kbd></span><p>快跑，消耗体力</p><span><kbd>E</kbd></span><p>在帐篷休息，或激活终点信标</p><span><kbd>Esc</kbd> / <kbd>P</kbd></span><p>暂停 / 继续</p><span><kbd>R</kbd></span><p>回到最近的避风点</p></div><p class="help-tip">触碰发光的信封即可收集手记。靠近帐篷按 E 保存检查点并恢复体温；踏空后会回到最近的避风点。抵达每关的旗帜，按 E 继续下一程。</p><p class="small-note">进度仅保存在当前浏览器。本作使用真实地名与地貌意象，关卡、营地及故事均为虚构；现实中的鳌太穿越涉及自然保护区禁入管理。</p><button class="primary-button close-help">准备好了 <span>→</span></button></dialog>
+  <dialog id="journalDialog"><button class="close-dialog" aria-label="关闭手记">×</button><span class="eyebrow">LETTERS FROM THE RIDGE</span><h2>山野手记</h2><p class="journal-intro">有些风景，走近了才读得懂。</p><div id="journalEntries"></div></dialog>
+  <script type="module" src="./game.mjs"></script>
+</body>
+</html>
